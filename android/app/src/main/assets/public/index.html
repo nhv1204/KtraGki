@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đếm ngược sinh nhật</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fce4ec;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #e91e63;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e91e63;
+        }
+        #result {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🎂 Đếm ngược sinh nhật</h1>
+    <input type="text" id="birthday" placeholder="Nhập ngày sinh (dd/mm)">
+    <button onclick="calculateDays()">📅 Tính toán</button>
+    <button id="share-btn" class="btn-share">📤 Chia sẻ kết quả</button>
+    <button id="battery-btn">🔋 Kiểm tra pin</button>
+    <p id="battery-status">⚡ Trạng thái pin sẽ hiển thị ở đây...</p>
+
+    <div id="result"></div>
+</div>
+<script>
+    function calculateDays() {
+        const input = document.getElementById("birthday").value;
+        const resultDiv = document.getElementById("result");
+        if (!input.match(/^\d{2}\/\d{2}$/)) {
+            resultDiv.innerHTML = "Vui lòng nhập đúng định dạng dd/mm";
+            return;
+        }
+
+        const [day, month] = input.split("/").map(Number);
+        const today = new Date();
+        let nextBirthday = new Date(today.getFullYear(), month - 1, day);
+        if (nextBirthday < today) {
+            nextBirthday.setFullYear(today.getFullYear() + 1);
+        }
+        const daysLeft = Math.ceil((nextBirthday - today) / (1000 * 60 * 60 * 24));
+        resultDiv.innerHTML = `Còn ${daysLeft} ngày đến sinh nhật! 🎉`;
+    }
+</script>
+</body>
+</html>
